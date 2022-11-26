@@ -40,7 +40,7 @@
             </Border.BorderBrush>
         </Border>
         <TextBlock HorizontalAlignment="Left" Margin="225,0,0,0" TextWrapping="Wrap" Text="WINAMP" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="16" Width="53" />
-        <Button x:Name="X_Button" Content="r" HorizontalContentAlignment="Left" Margin="129,0,15,211" BorderBrush="#00707070" Foreground="#FF978355" Background="#00DDDDDD" FontSize="16" FontWeight="Bold" Padding="0,0,0,0" Click="Button_Click" FontFamily="Marlett" Grid.Column="3"/>
+        <Button x:Name="X_Button" Content="r" HorizontalContentAlignment="Left" Margin="129,0,15,211" BorderBrush="#00707070" Foreground="#FF978355" Background="#00DDDDDD" FontSize="16" FontWeight="Bold" Padding="0,0,0,0" Click="X_Button_Close" FontFamily="Marlett" Grid.Column="3"/>
         <Line X1="290" Y1="10" X2="480" Y2="10" StrokeThickness="7" Grid.ColumnSpan="4">
             <Line.Stroke>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -89,7 +89,7 @@
                 </ProgressBar.Foreground>
             </ProgressBar>
         </Border>
-        <Button Content="7" HorizontalAlignment="Left" Margin="57,139,0,0" VerticalAlignment="Top" Width="28" Height="33" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Foreground="#FF97A8B9" Background="#FFB9C8D2" BorderBrush="White" Click="Button_Click_1">
+        <Button Content="7" HorizontalAlignment="Left" Margin="57,139,0,0" VerticalAlignment="Top" Width="28" Height="33" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Foreground="#FF97A8B9" Background="#FFB9C8D2" BorderBrush="White" Click="Prev_Button">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -99,10 +99,10 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button Content="||" HorizontalAlignment="Left" Margin="107,159,0,0" VerticalAlignment="Top" Width="32" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Impact" FontSize="22" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="#FFF7F6F6" Padding="0,0,0,5" Click="Button_Click_2"/>
-        <Button Content="g" HorizontalAlignment="Left" Margin="144,159,0,0" VerticalAlignment="Top" Width="33" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="White" Click="Button_Click_3"/>
+        <Button Content="||" HorizontalAlignment="Left" Margin="107,159,0,0" VerticalAlignment="Top" Width="32" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Impact" FontSize="22" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="#FFF7F6F6" Padding="0,0,0,5" Click="Pause_Button"/>
+        <Button Content="g" HorizontalAlignment="Left" Margin="144,159,0,0" VerticalAlignment="Top" Width="33" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="White" Click="Stop_Button"/>
         <Button Content="4" HorizontalAlignment="Left" Margin="70,159,0,0" VerticalAlignment="Top" Width="32" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="#FFF7F6F6" Click="play_click"/>
-        <Button Content="7" HorizontalAlignment="Left" Margin="201,178,0,0" VerticalAlignment="Top" Width="28" Height="33" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Foreground="#FF97A8B9" Background="#FFB9C8D2" BorderBrush="White" Click="Button_Click_4">
+        <Button Content="7" HorizontalAlignment="Left" Margin="201,178,0,0" VerticalAlignment="Top" Width="28" Height="33" RenderTransformOrigin="-0.188,0.43" FontFamily="Marlett" FontSize="22" Foreground="#FF97A8B9" Background="#FFB9C8D2" BorderBrush="White" Click="Next_Button">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

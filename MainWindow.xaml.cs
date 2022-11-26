@@ -46,6 +46,8 @@ namespace Winamp_WPF
             timer2.Tick += new EventHandler(RunningName);
             //Main.WindowStyle = WindowStyle.None;
         }
+        //
+        //My Funcs
         public void Total_seconds()
         {
             try
@@ -62,26 +64,7 @@ namespace Winamp_WPF
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }    
         }
-        public void Update(object sender, EventArgs e)
-        {
-            time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
-
-
-            progress_player.Value = Player.Position.TotalSeconds;    
-        }
-        public void RunningName(object sender, EventArgs e)
-        {
-            if (songName_label.Content.ToString().Count() > 0)
-            {
-                songName_label.Content = songName_label.Content.ToString() + songName_label.Content.ToString()[0];
-                songName_label.Content = songName_label.Content.ToString().Remove(0, 1);
-            }
-        }
-        private void media_MediaEnded(object sender, RoutedEventArgs e)
-        {
-            Next_song();       
-        }
-        public void Prev_song() 
+        public void Prev_song()
         {
             if (List.SelectedIndex - 1 >= 0)
             {
@@ -97,11 +80,34 @@ namespace Winamp_WPF
                 List.SelectedIndex = List.SelectedIndex + 1;
             }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void media_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            Next_song();
+        }
+        //
+        //Timers
+        public void Update(object sender, EventArgs e)
+        {
+            time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
+
+
+            progress_player.Value = Player.Position.TotalSeconds;    
+        }
+        public void RunningName(object sender, EventArgs e)
+        {
+            if (songName_label.Content.ToString().Count() > 0)
+            {
+                songName_label.Content = songName_label.Content.ToString() + songName_label.Content.ToString()[0];
+                songName_label.Content = songName_label.Content.ToString().Remove(0, 1);
+            }
+        }
+        //
+        //Buttons            
+        private void X_Button_Close(object sender, RoutedEventArgs e)
         {
             Close();
         }
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void Pause_Button(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -124,29 +130,16 @@ namespace Winamp_WPF
                 }
             }catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void Stop_Button(object sender, RoutedEventArgs e)
         {
             Player.Source = null;
             timer2.Stop();
             pause_time = 0;
             tmpSource = "";
         }
-        private void Button_Click_4(object sender, RoutedEventArgs e)
+        private void Next_Button(object sender, RoutedEventArgs e)
         {
             Next_song();
-        }
-        private void volume_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            Player.Volume = (double)e.NewValue/100;
-            volume_menu.SelectionEnd = Convert.ToInt32(e.NewValue);
-        }
-        private void balance_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            if (e.NewValue > 50)
-                Player.Balance = 1;
-            else if (e.NewValue < 50)
-                Player.Balance = -1;
-            else Player.Balance = 0;
         }
         private void add_click(object sender, RoutedEventArgs e)
         {
@@ -154,24 +147,20 @@ namespace Winamp_WPF
             openFileDialog1.Multiselect = true;
             openFileDialog1.Filter = "mp3 files (*.mp3)|*.mp3";
             openFileDialog1.ShowDialog();
-            
+
             if (List.Items.Count > 0) List.Items.Clear();
             {
                 for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
                 {
                     playlist_list.Add(openFileDialog1.FileNames[i]);
-                    List.Items.Add("["+(i+1)+"]  "+openFileDialog1.SafeFileNames[i]);
-                }               
+                    List.Items.Add("[" + (i + 1) + "]  " + openFileDialog1.SafeFileNames[i]);
+                }
             }
-            //for (int i = 0; i < playlist_list.Count; i++)
-            //{
-            //    List.Items.Add(playlist_list[i]);
-            //}
         }
         private void rem_click(object sender, RoutedEventArgs e)
         {
             playlist_list.RemoveAt(List.SelectedIndex);
-            List.Items.Remove(List.SelectedItem);          
+            List.Items.Remove(List.SelectedItem);
         }
         private void play_click(object sender, RoutedEventArgs e)
         {
@@ -191,21 +180,36 @@ namespace Winamp_WPF
                 timer2.Start();
             }
         }
-        private void Button_Click_1(object sender, RoutedEventArgs e)
+        private void Prev_Button(object sender, RoutedEventArgs e)
         {
             Prev_song();
         }
         private void Rewind_Button(object sender, RoutedEventArgs e)
         {
             double n = Player.Position.TotalSeconds;
-            if(n - 10 > 0)
+            if (n - 10 > 0)
                 Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) - 10, 0);
         }
         private void Forward_Button(object sender, RoutedEventArgs e)
         {
             double n = Player.Position.TotalSeconds;
             if (n + 10 < progress_player.Maximum)
-                Player.Position = new TimeSpan(0, 0, 0,Convert.ToInt32(n) + 10, 0);
+                Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) + 10, 0);
         }
+        //
+        //Sliders
+        private void volume_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Player.Volume = (double)e.NewValue/100;
+            volume_menu.SelectionEnd = Convert.ToInt32(e.NewValue);
+        }
+        private void balance_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            if (e.NewValue > 50)
+                Player.Balance = 1;
+            else if (e.NewValue < 50)
+                Player.Balance = -1;
+            else Player.Balance = 0;
+        }        
     }
 }
