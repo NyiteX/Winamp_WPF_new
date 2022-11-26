@@ -65,18 +65,34 @@ namespace Winamp_WPF
         }
         public void Prev_song()
         {
-            if (List.SelectedIndex - 1 >= 0)
+            if (List.Items.Count > 0)
             {
-                Player.Source = new Uri(playlist_list[List.SelectedIndex - 1]);
-                List.SelectedIndex = List.SelectedIndex - 1;
+                if (List.SelectedIndex - 1 >= 0)
+                {
+                    Player.Source = new Uri(playlist_list[List.SelectedIndex - 1]);
+                    List.SelectedIndex = List.SelectedIndex - 1;
+                }
+                else
+                {
+                    Player.Source = new Uri(playlist_list[List.Items.Count - 1]);
+                    List.SelectedIndex = List.Items.Count - 1;
+                }
             }
         }
         public void Next_song()
         {
-            if (List.SelectedIndex + 1 < List.Items.Count)
+            if (List.Items.Count > 0)
             {
-                Player.Source = new Uri(playlist_list[List.SelectedIndex + 1]);
-                List.SelectedIndex = List.SelectedIndex + 1;
+                if (List.SelectedIndex + 1 < List.Items.Count)
+                {
+                    Player.Source = new Uri(playlist_list[List.SelectedIndex + 1]);
+                    List.SelectedIndex = List.SelectedIndex + 1;
+                }
+                else
+                {
+                    Player.Source = new Uri(playlist_list[0]);
+                    List.SelectedIndex = 0;
+                }
             }
         }
         private void media_MediaEnded(object sender, RoutedEventArgs e)
@@ -206,11 +222,7 @@ namespace Winamp_WPF
         private void balance_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             balance_menu.Value = (int)Math.Round(e.NewValue);
-            if (balance_menu.Value > 50)
-                Player.Balance = 1;
-            else if (balance_menu.Value < 50)
-                Player.Balance = -1;
-            else Player.Balance = 0;
+            Player.Balance = balance_menu.Value/10;
         }        
     }
 }
