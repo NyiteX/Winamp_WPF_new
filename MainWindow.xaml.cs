@@ -32,7 +32,6 @@ namespace Winamp_WPF
         DispatcherTimer timer2 = new DispatcherTimer();
         uint pause_time = 0;
         string tmpSource = "";
-        Point p;
         public MainWindow()
         {
             InitializeComponent();
@@ -107,6 +106,24 @@ namespace Winamp_WPF
         {
             Close();
         }
+        private void play_click(object sender, RoutedEventArgs e)
+        {
+            if (List.SelectedIndex != -1)
+            {
+                Player.Source = new Uri(playlist_list[List.SelectedIndex]);
+                Total_seconds();
+                timer2.Start();
+            }
+        }
+        private void List_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (List.SelectedIndex != -1)
+            {
+                Player.Source = new Uri(playlist_list[List.SelectedIndex]);
+                Total_seconds();
+                timer2.Start();
+            }
+        }
         private void Pause_Button(object sender, RoutedEventArgs e)
         {
             try
@@ -141,6 +158,10 @@ namespace Winamp_WPF
         {
             Next_song();
         }
+        private void Prev_Button(object sender, RoutedEventArgs e)
+        {
+            Prev_song();
+        }
         private void add_click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
@@ -161,29 +182,7 @@ namespace Winamp_WPF
         {
             playlist_list.RemoveAt(List.SelectedIndex);
             List.Items.Remove(List.SelectedItem);
-        }
-        private void play_click(object sender, RoutedEventArgs e)
-        {
-            if (List.SelectedIndex != -1)
-            {
-                Player.Source = new Uri(playlist_list[List.SelectedIndex]);
-                Total_seconds();
-                timer2.Start();
-            }
-        }
-        private void List_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            if (List.SelectedIndex != -1)
-            {
-                Player.Source = new Uri(playlist_list[List.SelectedIndex]);
-                Total_seconds();
-                timer2.Start();
-            }
-        }
-        private void Prev_Button(object sender, RoutedEventArgs e)
-        {
-            Prev_song();
-        }
+        }     
         private void Rewind_Button(object sender, RoutedEventArgs e)
         {
             double n = Player.Position.TotalSeconds;
@@ -200,14 +199,16 @@ namespace Winamp_WPF
         //Sliders
         private void volume_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            volume_menu.Value = (int)Math.Round(e.NewValue);
             Player.Volume = (double)e.NewValue/100;
             volume_menu.SelectionEnd = Convert.ToInt32(e.NewValue);
         }
         private void balance_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            if (e.NewValue > 50)
+            balance_menu.Value = (int)Math.Round(e.NewValue);
+            if (balance_menu.Value > 50)
                 Player.Balance = 1;
-            else if (e.NewValue < 50)
+            else if (balance_menu.Value < 50)
                 Player.Balance = -1;
             else Player.Balance = 0;
         }        

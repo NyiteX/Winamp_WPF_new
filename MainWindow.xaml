@@ -23,6 +23,7 @@
             <RowDefinition Height="235*"></RowDefinition>
             <RowDefinition Height="439*"></RowDefinition>
         </Grid.RowDefinitions>
+        <StackPanel Grid.Column="3"/>
         <Border BorderThickness="3" Margin="37,36,128,117" Background="Black">
             <Border.BorderBrush>
                 <RadialGradientBrush>
@@ -158,7 +159,7 @@
             </Slider.Resources>
         </Slider>
 
-        <Slider x:Name="balance_menu" HorizontalAlignment="Left" Margin="32,99,0,0" VerticalAlignment="Top" Width="60" ValueChanged="balance_menu_ValueChanged" Maximum="100" ToolTip="{Binding Value, ElementName=balance_menu}" Value="50" Grid.ColumnSpan="3" Height="18" SmallChange="1" Grid.Column="1"/>
+        <Slider x:Name="balance_menu" HorizontalAlignment="Left" Margin="32,99,0,0" VerticalAlignment="Top" Width="60" ValueChanged="balance_menu_ValueChanged" Maximum="100" ToolTip="{Binding Value, ElementName=balance_menu}" Value="50" Grid.ColumnSpan="3" Height="18" Grid.Column="1" SmallChange="1"/>
         <TextBlock HorizontalAlignment="Left" Margin="196,16,0,0" TextWrapping="Wrap" Text="WINAMP PLAYLIST" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Height="16" Width="112" Grid.Row="1" Grid.ColumnSpan="2" />
         <Border BorderThickness="3" Margin="36,45,48,78" Grid.Row="1" Background="Black" Grid.ColumnSpan="4">
             <Border.BorderBrush>
@@ -241,6 +242,5 @@
         <Label x:Name="time_file_label" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Height="74" Width="110" Foreground="#FF7DFF00" FlowDirection="RightToLeft" FontSize="22" Content="00:00" FontFamily="Cascadia Mono SemiLight"/>
         <Button x:Name="plus_time" Content="+10sec" HorizontalAlignment="Left" Margin="0,159,0,0" VerticalAlignment="Top" Width="64" Height="28" RenderTransformOrigin="-0.188,0.43" Background="#FFB9C8D2" Foreground="#FF626262" BorderBrush="White" Click="Forward_Button" FontFamily="Unispace" Grid.Column="3"/>
         <Button x:Name="minus_time" Content="-10sec" HorizontalAlignment="Left" Margin="288,159,0,0" VerticalAlignment="Top" Width="56" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Unispace" Background="#FFB9C8D2" Foreground="#FF5F6163" BorderBrush="White" Click="Rewind_Button" Grid.ColumnSpan="3"/>
-        <StackPanel Grid.Column="3"/>
     </Grid>
 </Window>
