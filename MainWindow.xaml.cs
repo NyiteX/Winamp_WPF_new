@@ -18,6 +18,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using System.Windows.Ink;
 
 namespace Winamp_WPF
 {
@@ -27,9 +28,8 @@ namespace Winamp_WPF
     public partial class MainWindow : Window
     {
         List<string> playlist_list = new List<string>();
-        bool play = false;
         DispatcherTimer timer = new DispatcherTimer();
-
+        char[] word;
         public MainWindow()
         {
             InitializeComponent();
@@ -37,7 +37,7 @@ namespace Winamp_WPF
             
             timer.Tick += new EventHandler(Update);
             timer.Start();
-            //stereo_label.
+            stereo_label.Foreground = new SolidColorBrush(Color.FromArgb(255,77,253,0));
         }
         public void Total_seconds()
         {
@@ -49,6 +49,7 @@ namespace Winamp_WPF
                     IShellProperty prop = shell.Properties.System.Media.Duration;
                     var t = (ulong)prop.ValueAsObject;
                     progress_player.Maximum = TimeSpan.FromTicks((long)t).TotalSeconds;
+                    songName_label.Content = shell.Name;
                 }
             }
             catch (Exception ex) { MessageBox.Show(ex.Message); }
@@ -57,7 +58,8 @@ namespace Winamp_WPF
         { 
             time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
             
-            progress_player.Value = Player.Position.TotalSeconds;           
+            progress_player.Value = Player.Position.TotalSeconds;
+          
         }
         private void media_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -103,6 +105,7 @@ namespace Winamp_WPF
         private void volume_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Player.Volume = (double)e.NewValue/100;
+            volume_menu.SelectionEnd = Convert.ToInt32(e.NewValue);
         }
         private void balance_menu_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
@@ -111,7 +114,6 @@ namespace Winamp_WPF
             else if (e.NewValue < 50)
                 Player.Balance = -1;
             else Player.Balance = 0;
-            //Player.Balance = e.NewValue;
         }
 
         private void add_click(object sender, RoutedEventArgs e)
@@ -127,15 +129,10 @@ namespace Winamp_WPF
                 List.Items.Add(playlist_list[i]);
             }
         }
-
         private void rem_click(object sender, RoutedEventArgs e)
         {
             playlist_list.RemoveAt(List.SelectedIndex);
             List.Items.Remove(List.SelectedItem);          
-        }
-        private void List_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-                        
         }
         private void play_click(object sender, RoutedEventArgs e)
         {
@@ -146,11 +143,6 @@ namespace Winamp_WPF
             Player.Source = new Uri(List.SelectedItem.ToString());
             Total_seconds();
         }
-
-        private void balance_menu_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            //Player.Balance = 0;           
-        }
         private void List_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {           
             Player.Source = new Uri(List.SelectedItem.ToString());
@@ -160,14 +152,12 @@ namespace Winamp_WPF
         {
             Prev_song();
         }
-
         private void Rewind_Button(object sender, RoutedEventArgs e)
         {
             double n = Player.Position.TotalSeconds;
             if(n - 10 > 0)
                 Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) - 10, 0);
         }
-
         private void Forward_Button(object sender, RoutedEventArgs e)
         {
             double n = Player.Position.TotalSeconds;
