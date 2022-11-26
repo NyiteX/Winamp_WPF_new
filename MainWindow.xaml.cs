@@ -32,6 +32,7 @@ namespace Winamp_WPF
         DispatcherTimer timer2 = new DispatcherTimer();
         uint pause_time = 0;
         string tmpSource = "";
+        Point p;
         public MainWindow()
         {
             InitializeComponent();
@@ -43,7 +44,7 @@ namespace Winamp_WPF
 
             timer2.Interval = TimeSpan.FromMilliseconds(250);
             timer2.Tick += new EventHandler(RunningName);
-            Main.WindowStyle = WindowStyle.None;
+            //Main.WindowStyle = WindowStyle.None;
         }
         public void Total_seconds()
         {
