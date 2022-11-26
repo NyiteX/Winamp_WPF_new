@@ -145,7 +145,7 @@
             </Line.Fill>
         </Line>
 
-        <MediaElement x:Name="Player" HorizontalAlignment="Left" Height="91" Margin="205,8,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3" LoadedBehavior="Play" UnloadedBehavior="Manual"/>
+        <MediaElement x:Name="Player" HorizontalAlignment="Left" Height="91" Margin="205,8,0,0" VerticalAlignment="Top" Width="130" Grid.Column="3" LoadedBehavior="Play" UnloadedBehavior="Manual" Visibility="Hidden"/>
         <Slider x:Name="volume_menu" HorizontalAlignment="Left" Margin="183,99,0,0" VerticalAlignment="Top" Width="120" ValueChanged="volume_menu_ValueChanged" Maximum="100" Value="20" ToolTip="{Binding Value, ConverterParameter=int, ElementName=volume_menu}" Foreground="{x:Null}" BorderBrush="{x:Null}" Background="{x:Null}" Height="18" SmallChange="1" IsSelectionRangeEnabled="True" Grid.ColumnSpan="2">
             <Slider.Resources>
                 <LinearGradientBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" EndPoint="0.5,1" StartPoint="0.5,0">
@@ -187,7 +187,7 @@
                     <GradientStop Color="#FF565660" Offset="1"/>
                 </RadialGradientBrush>
             </Border.BorderBrush>
-            <TextBox x:Name="kbps_tb" TextWrapping="Wrap" Text="123" Background="{x:Null}" Foreground="#FF4DFD00" Margin="1,0,1,0"/>
+            <TextBox x:Name="kbps_tb" TextWrapping="Wrap" Text="0" Background="{x:Null}" Foreground="#FF4DFD00" Margin="1,0,1,0"/>
         </Border>
         <Border BorderThickness="3" Margin="252,69,0,136" Background="Black">
             <Border.BorderBrush>
@@ -196,7 +196,7 @@
                     <GradientStop Color="#FF565660" Offset="1"/>
                 </RadialGradientBrush>
             </Border.BorderBrush>
-            <TextBox x:Name="khz_tb" TextWrapping="Wrap" Text="555" Foreground="#FF4DFD00" Background="{x:Null}"/>
+            <TextBox x:Name="khz_tb" TextWrapping="Wrap" Text="0" Foreground="#FF4DFD00" Background="{x:Null}"/>
         </Border>
         <Label x:Name="mono_label" Content="mono" HorizontalAlignment="Left" Margin="19,66,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="45" Height="25" Foreground="White" Grid.Column="3">
             <Label.RenderTransform>
@@ -238,9 +238,9 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label x:Name="time_file_label" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Height="74" Width="110" Foreground="#FF7DFF00" FlowDirection="RightToLeft" FontSize="18"/>
-        <Button x:Name="plus_time" Content="+10sec" HorizontalAlignment="Left" Margin="0,159,0,0" VerticalAlignment="Top" Width="64" Height="28" RenderTransformOrigin="-0.188,0.43" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="White" Click="Forward_Button" FontFamily="Unispace" Grid.Column="3"/>
-        <Button x:Name="minus_time" Content="-10sec" HorizontalAlignment="Left" Margin="288,159,0,0" VerticalAlignment="Top" Width="56" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Unispace" Background="#FFB9C8D2" Foreground="#FF97A8B9" BorderBrush="White" Click="Rewind_Button" Grid.ColumnSpan="3"/>
+        <Label x:Name="time_file_label" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Height="74" Width="110" Foreground="#FF7DFF00" FlowDirection="RightToLeft" FontSize="22" Content="00:00" FontFamily="Cascadia Mono SemiLight"/>
+        <Button x:Name="plus_time" Content="+10sec" HorizontalAlignment="Left" Margin="0,159,0,0" VerticalAlignment="Top" Width="64" Height="28" RenderTransformOrigin="-0.188,0.43" Background="#FFB9C8D2" Foreground="#FF626262" BorderBrush="White" Click="Forward_Button" FontFamily="Unispace" Grid.Column="3"/>
+        <Button x:Name="minus_time" Content="-10sec" HorizontalAlignment="Left" Margin="288,159,0,0" VerticalAlignment="Top" Width="56" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Unispace" Background="#FFB9C8D2" Foreground="#FF5F6163" BorderBrush="White" Click="Rewind_Button" Grid.ColumnSpan="3"/>
         <StackPanel Grid.Column="3"/>
     </Grid>
 </Window>

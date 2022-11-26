@@ -50,7 +50,7 @@ namespace Winamp_WPF
         {
             try
             {
-                using (var shell = ShellObject.FromParsingName(List.SelectedItem.ToString()))
+                using (var shell = ShellObject.FromParsingName(playlist_list[List.SelectedIndex]))
                 {
                     IShellProperty prop = shell.Properties.System.Media.Duration;
                     var t = (ulong)prop.ValueAsObject;
@@ -85,7 +85,7 @@ namespace Winamp_WPF
         {
             if (List.SelectedIndex - 1 >= 0)
             {
-                Player.Source = new Uri(List.Items[List.SelectedIndex - 1].ToString());
+                Player.Source = new Uri(playlist_list[List.SelectedIndex - 1]);
                 List.SelectedIndex = List.SelectedIndex - 1;
             }
         }
@@ -93,7 +93,7 @@ namespace Winamp_WPF
         {
             if (List.SelectedIndex + 1 < List.Items.Count)
             {
-                Player.Source = new Uri(List.Items[List.SelectedIndex + 1].ToString());
+                Player.Source = new Uri(playlist_list[List.SelectedIndex + 1]);
                 List.SelectedIndex = List.SelectedIndex + 1;
             }
         }
@@ -151,15 +151,22 @@ namespace Winamp_WPF
         private void add_click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Multiselect = true;
             openFileDialog1.Filter = "mp3 files (*.mp3)|*.mp3";
             openFileDialog1.ShowDialog();
-
+            
             if (List.Items.Count > 0) List.Items.Clear();
-            playlist_list.Add(openFileDialog1.FileName);          
-            for (int i = 0; i < playlist_list.Count; i++)
             {
-                List.Items.Add(playlist_list[i]);
+                for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
+                {
+                    playlist_list.Add(openFileDialog1.FileNames[i]);
+                    List.Items.Add("["+(i+1)+"]  "+openFileDialog1.SafeFileNames[i]);
+                }               
             }
+            //for (int i = 0; i < playlist_list.Count; i++)
+            //{
+            //    List.Items.Add(playlist_list[i]);
+            //}
         }
         private void rem_click(object sender, RoutedEventArgs e)
         {
@@ -170,7 +177,7 @@ namespace Winamp_WPF
         {
             if (List.SelectedIndex != -1)
             {
-                Player.Source = new Uri(List.SelectedItem.ToString());
+                Player.Source = new Uri(playlist_list[List.SelectedIndex]);
                 Total_seconds();
                 timer2.Start();
             }
@@ -179,7 +186,7 @@ namespace Winamp_WPF
         {
             if (List.SelectedIndex != -1)
             {
-                Player.Source = new Uri(List.SelectedItem.ToString());
+                Player.Source = new Uri(playlist_list[List.SelectedIndex]);
                 Total_seconds();
                 timer2.Start();
             }
