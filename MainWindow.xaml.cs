@@ -30,6 +30,8 @@ namespace Winamp_WPF
         List<string> playlist_list = new List<string>();
         DispatcherTimer timer = new DispatcherTimer();
         DispatcherTimer timer2 = new DispatcherTimer();
+        uint pause_time = 0;
+        string tmpSource = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -41,6 +43,7 @@ namespace Winamp_WPF
 
             timer2.Interval = TimeSpan.FromMilliseconds(250);
             timer2.Tick += new EventHandler(RunningName);
+            Main.WindowStyle = WindowStyle.None;
         }
         public void Total_seconds()
         {
@@ -51,7 +54,7 @@ namespace Winamp_WPF
                     IShellProperty prop = shell.Properties.System.Media.Duration;
                     var t = (ulong)prop.ValueAsObject;
                     progress_player.Maximum = TimeSpan.FromTicks((long)t).TotalSeconds;
-                    songName_label.Content = shell.Name + "  ";
+                    songName_label.Content = shell.Name + "   ";
                     kbps_tb.Text = (shell.Properties.System.Audio.EncodingBitrate.Value / 1000).ToString();
                     khz_tb.Text = shell.Properties.System.Audio.SampleSize.Value.ToString();
                 }
@@ -59,23 +62,19 @@ namespace Winamp_WPF
             catch (Exception ex) { MessageBox.Show(ex.Message); }    
         }
         public void Update(object sender, EventArgs e)
-        { 
+        {
             time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
-            
+
+
             progress_player.Value = Player.Position.TotalSeconds;    
         }
         public void RunningName(object sender, EventArgs e)
         {
-            //MessageBox.Show(songName_label.Content.ToString());
-            try
+            if (songName_label.Content.ToString().Count() > 0)
             {
-                if (songName_label.Content.ToString().Count() > 0)
-                {
-                    songName_label.Content = songName_label.Content.ToString() + songName_label.Content.ToString()[0];
-                    songName_label.Content = songName_label.Content.ToString().Remove(0,1);
-                }
+                songName_label.Content = songName_label.Content.ToString() + songName_label.Content.ToString()[0];
+                songName_label.Content = songName_label.Content.ToString().Remove(0, 1);
             }
-            catch (Exception exe) { MessageBox.Show(exe.Message); }
         }
         private void media_MediaEnded(object sender, RoutedEventArgs e)
         {
@@ -105,15 +104,31 @@ namespace Winamp_WPF
         {
             try
             {
-                Player.Pause();
+                if (Player.Source != null)
+                {
+                    pause_time = (uint)Player.Position.TotalSeconds;
+                    tmpSource = Player.Source.ToString();
+                    Player.Source = null;
+                }
+                else
+                {
+                    if (tmpSource != "" && pause_time != 0)
+                    {
+                        Player.Source = new Uri(tmpSource);
+                        Player.Position = new TimeSpan(0, 0, 0, (int)pause_time, 0);
+
+                        pause_time = 0;
+                        tmpSource = "";
+                    }
+                }
             }catch(Exception ex) { MessageBox.Show(ex.Message); }
         }
         private void Button_Click_3(object sender, RoutedEventArgs e)
         {
-            //Player.Stop();
-            //play = false;
             Player.Source = null;
             timer2.Stop();
+            pause_time = 0;
+            tmpSource = "";
         }
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
