@@ -177,7 +177,7 @@
                     <GradientStop Color="#FF565660" Offset="1"/>
                 </RadialGradientBrush>
             </Border.BorderBrush>
-            <Label x:Name="songName_label" Content="Label" Foreground="#FF71FF00" Padding="0,0,0,0" Margin="0,0,0,-8"/>
+            <Label x:Name="songName_label" Content="" Foreground="#FF71FF00" Padding="0,0,0,0" Margin="0,0,0,-8"/>
         </Border>
         <Border BorderThickness="3" Margin="183,69,107,136" Background="Black">
             <Border.BorderBrush>

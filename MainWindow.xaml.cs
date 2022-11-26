@@ -138,15 +138,20 @@ namespace Winamp_WPF
         {
             //play = true;
             //if (Player.Source != null && play)
-               //Player.Play();
-
-            Player.Source = new Uri(List.SelectedItem.ToString());
-            Total_seconds();
+            //Player.Play();
+            if (List.SelectedIndex != -1)
+            {
+                Player.Source = new Uri(List.SelectedItem.ToString());
+                Total_seconds();
+            }
         }
         private void List_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {           
-            Player.Source = new Uri(List.SelectedItem.ToString());
-            Total_seconds();
+        {
+            if (List.SelectedIndex != -1)
+            {
+                Player.Source = new Uri(List.SelectedItem.ToString());
+                Total_seconds();
+            }
         }
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
