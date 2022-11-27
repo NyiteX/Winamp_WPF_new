@@ -43,7 +43,7 @@ namespace Winamp_WPF
 
             timer2.Interval = TimeSpan.FromMilliseconds(250);
             timer2.Tick += new EventHandler(RunningName);
-            //Main.WindowStyle = WindowStyle.None;
+            Main.WindowStyle = WindowStyle.ToolWindow;
             balance_label.Visibility = Visibility.Hidden;
             volume_label.Visibility = Visibility.Hidden;
         }
@@ -80,6 +80,7 @@ namespace Winamp_WPF
                     List.SelectedIndex = List.Items.Count - 1;
                 }
             }
+            Total_seconds();
         }
         public void Next_song()
         {
@@ -96,10 +97,26 @@ namespace Winamp_WPF
                     List.SelectedIndex = 0;
                 }
             }
+            Total_seconds();
+        }
+        public void Rand_song()
+        {
+            Random r = new Random();           
+            int rand = r.Next(0, List.Items.Count);
+            while (rand == List.SelectedIndex)
+            {
+                rand = r.Next(0, List.Items.Count);
+            }    
+            if (List.Items.Count > 0)
+            {
+                Player.Source = new Uri(playlist_list[rand]);
+                List.SelectedIndex = rand;
+            }
+            Total_seconds();
         }
         private void media_MediaEnded(object sender, RoutedEventArgs e)
         {
-            Next_song();
+            Next_song();           
         }
         //
         //Timers
@@ -175,11 +192,17 @@ namespace Winamp_WPF
         }
         private void Next_Button(object sender, RoutedEventArgs e)
         {
-            Next_song();
+            if (rand_checkbox.IsChecked == true)
+                Rand_song();
+            else
+                Next_song();
         }
         private void Prev_Button(object sender, RoutedEventArgs e)
         {
-            Prev_song();
+            if (rand_checkbox.IsChecked == true)
+                Rand_song();
+            else
+                Prev_song();
         }
         private void add_click(object sender, RoutedEventArgs e)
         {
@@ -260,10 +283,9 @@ namespace Winamp_WPF
         {
             volume_label.Visibility = Visibility.Hidden;
         }
-
         private void progress_player_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            int p = (int)((e.GetPosition(progress_player).X/progress_player.ActualWidth)*progress_player.Maximum);
+            int p = (int)((e.GetPosition(progress_player).X / progress_player.ActualWidth)*progress_player.Maximum);
             progress_player.Value = p;
             Player.Position = new TimeSpan(0, 0, 0, p, 0);
         }

@@ -256,7 +256,7 @@
             </Label.RenderTransform>
         </Label>
         <Label x:Name="time_file_label" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Height="74" Width="110" Foreground="#FF7DFF00" FlowDirection="RightToLeft" FontSize="22" Content="00:00" FontFamily="Cascadia Mono SemiLight"/>
-        <Button x:Name="plus_time" Content="+10sec" HorizontalAlignment="Left" Margin="0,159,0,0" VerticalAlignment="Top" Width="64" Height="28" RenderTransformOrigin="-0.188,0.43" Foreground="#FF626262" BorderBrush="White" Click="Forward_Button" FontFamily="Unispace" Grid.Column="3">
+        <Button x:Name="plus_time" Content="+10sec" HorizontalAlignment="Left" Margin="33,159,0,0" VerticalAlignment="Top" Width="64" Height="28" RenderTransformOrigin="-0.188,0.43" Foreground="#FF626262" BorderBrush="White" Click="Forward_Button" FontFamily="Unispace" Grid.Column="3">
             <Button.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="#FFECFFFE"/>
@@ -264,7 +264,7 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="minus_time" Content="-10sec" HorizontalAlignment="Left" Margin="288,159,0,0" VerticalAlignment="Top" Width="56" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Unispace" Foreground="#FF5F6163" BorderBrush="White" Click="Rewind_Button" Grid.ColumnSpan="3">
+        <Button x:Name="minus_time" Content="-10sec" HorizontalAlignment="Left" Margin="19,159,0,0" VerticalAlignment="Top" Width="56" Height="28" RenderTransformOrigin="-0.188,0.43" FontFamily="Unispace" Foreground="#FF5F6163" BorderBrush="White" Click="Rewind_Button" Grid.ColumnSpan="3" Grid.Column="1">
             <Button.Background>
                 <RadialGradientBrush>
                     <GradientStop Color="#FFB9C8D2" Offset="1"/>
@@ -300,5 +300,6 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
+        <CheckBox x:Name="rand_checkbox" Content="Rand" HorizontalAlignment="Left" Margin="232,166,0,0" VerticalAlignment="Top" Width="56" Height="21" Foreground="White" UseLayoutRounding="False" Background="{x:Null}" BorderBrush="White"/>
     </Grid>
 </Window>
