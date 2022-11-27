@@ -51,19 +51,22 @@ namespace Winamp_WPF
         //My Funcs
         public void Total_seconds()
         {
-            try
+            if (List.SelectedIndex != -1)
             {
-                using (var shell = ShellObject.FromParsingName(playlist_list[List.SelectedIndex]))
+                try
                 {
-                    IShellProperty prop = shell.Properties.System.Media.Duration;
-                    var t = (ulong)prop.ValueAsObject;
-                    progress_player.Maximum = TimeSpan.FromTicks((long)t).TotalSeconds;
-                    songName_label.Content = shell.Name + "   ";
-                    kbps_tb.Text = (shell.Properties.System.Audio.EncodingBitrate.Value / 1000).ToString();
-                    khz_tb.Text = shell.Properties.System.Audio.SampleSize.Value.ToString();
+                    using (var shell = ShellObject.FromParsingName(playlist_list[List.SelectedIndex]))
+                    {
+                        IShellProperty prop = shell.Properties.System.Media.Duration;
+                        var t = (ulong)prop.ValueAsObject;
+                        progress_player.Maximum = TimeSpan.FromTicks((long)t).TotalSeconds;
+                        songName_label.Content = shell.Name + "   ";
+                        kbps_tb.Text = (shell.Properties.System.Audio.EncodingBitrate.Value / 1000).ToString();
+                        khz_tb.Text = shell.Properties.System.Audio.SampleSize.Value.ToString();
+                    }
                 }
+                catch (Exception ex) { MessageBox.Show(ex.Message); }
             }
-            catch (Exception ex) { MessageBox.Show(ex.Message); }    
         }
         public void Prev_song()
         {

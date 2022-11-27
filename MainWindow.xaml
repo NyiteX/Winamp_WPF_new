@@ -300,6 +300,13 @@
                 </RadialGradientBrush>
             </Button.Background>
         </Button>
-        <CheckBox x:Name="rand_checkbox" Content="Rand" HorizontalAlignment="Left" Margin="232,166,0,0" VerticalAlignment="Top" Width="56" Height="21" Foreground="White" UseLayoutRounding="False" Background="{x:Null}" BorderBrush="White"/>
+        <CheckBox x:Name="rand_checkbox" Content="Rand" HorizontalAlignment="Left" Margin="232,166,0,0" VerticalAlignment="Top" Width="56" Height="21" UseLayoutRounding="False" Background="Gainsboro" BorderBrush="White">
+            <CheckBox.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FFFFBB00" Offset="0"/>
+                    <GradientStop Color="White" Offset="1"/>
+                </LinearGradientBrush>
+            </CheckBox.Foreground>
+        </CheckBox>
     </Grid>
 </Window>
