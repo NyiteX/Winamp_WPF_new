@@ -185,12 +185,12 @@ namespace Winamp_WPF
             openFileDialog1.Filter = "mp3 files (*.mp3)|*.mp3";
             openFileDialog1.ShowDialog();
 
-            if (List.Items.Count > 0) List.Items.Clear();
+            //if (List.Items.Count > 0) List.Items.Clear();
             {
                 for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
                 {
                     playlist_list.Add(openFileDialog1.FileNames[i]);
-                    List.Items.Add("[" + (i + 1) + "]  " + openFileDialog1.SafeFileNames[i]);
+                    List.Items.Add("[" + playlist_list.Count + "]  " + openFileDialog1.SafeFileNames[i]);
                 }
             }
         }
