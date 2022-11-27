@@ -255,7 +255,7 @@
                 </TransformGroup>
             </Label.RenderTransform>
         </Label>
-        <Label x:Name="time_file_label" HorizontalAlignment="Left" Margin="40,40,0,0" VerticalAlignment="Top" Height="74" Width="110" Foreground="#FF7DFF00" FlowDirection="RightToLeft" FontSize="22" Content="00:00" FontFamily="Cascadia Mono SemiLight"/>
+        <Label x:Name="time_file_label" HorizontalAlignment="Left" Margin="36,42,0,0" VerticalAlignment="Top" Height="74" Width="120" Foreground="#FF7DFF00" FlowDirection="RightToLeft" FontSize="22" Content="00:00" FontFamily="Cascadia Mono SemiLight"/>
         <Button x:Name="plus_time" Content="+10sec" HorizontalAlignment="Left" Margin="33,159,0,0" VerticalAlignment="Top" Width="64" Height="28" RenderTransformOrigin="-0.188,0.43" Foreground="#FF626262" BorderBrush="White" Click="Forward_Button" FontFamily="Unispace" Grid.Column="3">
             <Button.Background>
                 <RadialGradientBrush>

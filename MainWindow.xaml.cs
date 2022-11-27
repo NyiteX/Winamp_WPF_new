@@ -125,7 +125,8 @@ namespace Winamp_WPF
         //Timers
         public void Update(object sender, EventArgs e)
         {
-            time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
+            //time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
+            time_file_label.Content = Player.Position.ToString(@"hh\:mm\:ss");
 
             balance_label.Content = balance_menu.Value.ToString();
             volume_label.Content = volume_menu.Value.ToString();
