@@ -44,6 +44,8 @@ namespace Winamp_WPF
             timer2.Interval = TimeSpan.FromMilliseconds(250);
             timer2.Tick += new EventHandler(RunningName);
             //Main.WindowStyle = WindowStyle.None;
+            balance_label.Visibility = Visibility.Hidden;
+            volume_label.Visibility = Visibility.Hidden;
         }
         //
         //My Funcs
@@ -105,7 +107,8 @@ namespace Winamp_WPF
         {
             time_file_label.Content = Player.Position.ToString("mm") + ':' + Player.Position.ToString("ss");
 
-
+            balance_label.Content = balance_menu.Value.ToString();
+            volume_label.Content = volume_menu.Value.ToString();
             progress_player.Value = Player.Position.TotalSeconds;    
         }
         public void RunningName(object sender, EventArgs e)
@@ -182,34 +185,51 @@ namespace Winamp_WPF
         {
             OpenFileDialog openFileDialog1 = new OpenFileDialog();
             openFileDialog1.Multiselect = true;
-            openFileDialog1.Filter = "mp3 files (*.mp3)|*.mp3";
+            openFileDialog1.Filter = "mp3, flac, wave files|*.mp3; *.flac; *.wave";
             openFileDialog1.ShowDialog();
 
-            //if (List.Items.Count > 0) List.Items.Clear();
+            for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
             {
-                for (int i = 0; i < openFileDialog1.FileNames.Length; i++)
-                {
-                    playlist_list.Add(openFileDialog1.FileNames[i]);
-                    List.Items.Add("[" + playlist_list.Count + "]  " + openFileDialog1.SafeFileNames[i]);
-                }
+                playlist_list.Add(openFileDialog1.FileNames[i]);
+                List.Items.Add("[" + playlist_list.Count + "]  " + openFileDialog1.SafeFileNames[i]);
             }
         }
         private void rem_click(object sender, RoutedEventArgs e)
         {
-            playlist_list.RemoveAt(List.SelectedIndex);
-            List.Items.Remove(List.SelectedItem);
-        }     
+            if (List.Items.Count > 0 && playlist_list.Count > 0)
+            {
+                playlist_list.RemoveAt(List.SelectedIndex);
+                List.Items.Remove(List.SelectedItem);
+                if(List.Items.Count == 0 && playlist_list.Count == 0)
+                    Player.Source = null;
+            }
+        }
+        private void clear_pl_Click(object sender, RoutedEventArgs e)
+        {
+            if (List.Items.Count > 0 && playlist_list.Count > 0)
+            {
+                playlist_list.Clear();
+                List.Items.Clear();
+                Player.Source = null;
+            }
+        }
         private void Rewind_Button(object sender, RoutedEventArgs e)
         {
-            double n = Player.Position.TotalSeconds;
-            if (n - 10 > 0)
-                Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) - 10, 0);
+            if (Player.Source != null)
+            {
+                double n = Player.Position.TotalSeconds;
+                if (n - 10 > 0)
+                    Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) - 10, 0);
+            }
         }
         private void Forward_Button(object sender, RoutedEventArgs e)
         {
-            double n = Player.Position.TotalSeconds;
-            if (n + 10 < progress_player.Maximum)
-                Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) + 10, 0);
+            if (Player.Source != null)
+            {
+                double n = Player.Position.TotalSeconds;
+                if (n + 10 < progress_player.Maximum)
+                    Player.Position = new TimeSpan(0, 0, 0, Convert.ToInt32(n) + 10, 0);
+            }
         }
         //
         //Sliders
@@ -223,6 +243,29 @@ namespace Winamp_WPF
         {
             balance_menu.Value = (int)Math.Round(e.NewValue);
             Player.Balance = balance_menu.Value/10;
-        }        
+        }
+        private void balance_menu_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            balance_label.Visibility = Visibility.Visible;            
+        }
+        private void balance_menu_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            balance_label.Visibility = Visibility.Hidden;
+        }
+        private void volume_menu_GotMouseCapture(object sender, MouseEventArgs e)
+        {
+            volume_label.Visibility = Visibility.Visible;
+        }
+        private void volume_menu_LostMouseCapture(object sender, MouseEventArgs e)
+        {
+            volume_label.Visibility = Visibility.Hidden;
+        }
+
+        private void progress_player_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            int p = (int)((e.GetPosition(progress_player).X/progress_player.ActualWidth)*progress_player.Maximum);
+            progress_player.Value = p;
+            Player.Position = new TimeSpan(0, 0, 0, p, 0);
+        }
     }
 }
